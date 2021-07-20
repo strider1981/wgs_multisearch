@@ -1,7 +1,7 @@
 # Woosmap geofencing Cordova Plugin 
 ### _Class `Woosmap`_
 
-`Woosmap` class will contain methods to moniter location, POIs, regions and visits. 
+`Woosmap` class will contain methods to monitor location, POIs, regions and visits. 
 
 * **Initializing Woosmap Object**
 
@@ -83,7 +83,7 @@ var errorCallback = function(error) {
 };
 
 //Stop watching
-Woosmap.clearDisatnceApiWatch(onSuccess, onError, watchId);
+Woosmap.clearDistanceApiWatch(onSuccess, onError, watchId);
 ```
 
 * **Track Distance API**: Call `watchDistanceApi` method to track distance API. Method will invoke a callback with `DistanceAPI` object. Method will return a watch id which can be used later to remove the callback.
@@ -100,7 +100,7 @@ var errorCallback = function(error) {
 };
 
 //Stop watching
-Woosmap.clearDisatnceApiWatch(onSuccess, onError, watchId);
+Woosmap.clearDistanceApiWatch(onSuccess, onError, watchId);
 ```
 
 
