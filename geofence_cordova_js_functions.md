@@ -1,4 +1,11 @@
-# Woosmap geofencing Cordova Plugin 
+# Woosmap geofencing Cordova Plugin
+
+### Cordova Plugin Structure
+
+![N|Solid](https://cordova.apache.org/static/img/guide/cordovaapparchitecture.png)
+
+---
+
 ### _Class `Woosmap`_
 
 `Woosmap` class will contain methods to monitor location, POIs, regions and visits. 
