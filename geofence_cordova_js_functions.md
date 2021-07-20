@@ -6,7 +6,7 @@
 * **Initializing Woosmap Object**
 
 ```javascript
-var woosmapSetting = {
+var woosmapSettings = {
         privateKeyWoosmapAPI: "<<WOOSMAP_KEY>>", 
         privateKeyGMPStatic: "<<GOOGLE_KEY>>",
         trackingEnable: true,
@@ -16,7 +16,7 @@ var woosmapSetting = {
         modeDistance: "driving"
 };
 
-Woosmap.initialize(onSuccess,onError,woosmapSetting);
+Woosmap.initialize(woosmapSettings, onSuccess, onError);
 
 var onSuccess = function() {
     console.log("success");
@@ -33,7 +33,7 @@ var onError = function(error) {
 ```javascript
 
 //Start tracking locations
-var watchId = Woosmap.watchLocation(locationCallback,errorCallback);
+var watchId = Woosmap.watchLocation(locationCallback, errorCallback);
 
 var locationCallback = function(location) {
     alert('Latitude: '          + location.lat          + '\n' +
@@ -48,13 +48,13 @@ var errorCallback = function(error) {
 };
 
 //Stop watching location
-Woosmap.clearLocationWatch(onSuccess, onError, watchId);
+Woosmap.clearLocationWatch(watchId, onSuccess, onError);
 ```
 
 * **Track search API**: Call `watchSearchApi` method to track search API. Method will invoke a callback with `POI` object. Method will return a watch id which can be used later to remove the callback.
 
 ```javascript
-var watchId = Woosmap.watchSearchAPI(searchCallback,errorCallback);
+var watchId = Woosmap.watchSearchAPI(searchCallback, errorCallback);
 
 var searchCallback = function(poi) {
    console.log(poi);
@@ -65,14 +65,14 @@ var errorCallback = function(error) {
 };
 
 //Stop watching
-Woosmap.clearSearchApiWatch(onSuccess, onError, watchId);
+Woosmap.clearSearchApiWatch(watchId, onSuccess, onError);
 ```
 
 
 * **Track Distance API**: Call `watchDistanceApi` method to track distance API. Method will invoke a callback with `DistanceAPI` object. Method will return a watch id which can be used later to remove the callback.
 
 ```javascript
-var watchId = Woosmap.watchDistanceApi(distanceApiCallback,errorCallback);
+var watchId = Woosmap.watchDistanceApi(distanceApiCallback, errorCallback);
 
 var distanceApiCallback = function(distanceApi) {
    console.log(distanceApi);
@@ -83,13 +83,13 @@ var errorCallback = function(error) {
 };
 
 //Stop watching
-Woosmap.clearDistanceApiWatch(onSuccess, onError, watchId);
+Woosmap.clearDistanceApiWatch(watchId, onSuccess, onError);
 ```
 
 * **Track Distance API**: Call `watchDistanceApi` method to track distance API. Method will invoke a callback with `DistanceAPI` object. Method will return a watch id which can be used later to remove the callback.
 
 ```javascript
-var watchId = Woosmap.watchDistanceApi(distanceApiCallback,errorCallback);
+var watchId = Woosmap.watchDistanceApi(distanceApiCallback, errorCallback);
 
 var distanceApiCallback = function(distanceApi) {
    console.log(distanceApi);
@@ -100,14 +100,14 @@ var errorCallback = function(error) {
 };
 
 //Stop watching
-Woosmap.clearDistanceApiWatch(onSuccess, onError, watchId);
+Woosmap.clearDistanceApiWatch(watchId, onSuccess, onError);
 ```
 
 
 * **Track Visits**: Call `watchVisits` method to track Visits. Method will invoke a callback with `Visit` object. Method will return a watch id which can be used later to remove the callback.
 
 ```javascript
-var watchId = Woosmap.watchVisits(visitCallback,errorCallback);
+var watchId = Woosmap.watchVisits(visitCallback, errorCallback);
 
 var visitCallback = function(visit) {
    console.log(visit);
@@ -118,14 +118,14 @@ var errorCallback = function(error) {
 };
 
 //Stop watching
-Woosmap.clearVisitsWatch(onSuccess, onError, watchId);
+Woosmap.clearVisitsWatch(watchId, onSuccess, onError);
 ```
 
 
 * **Track Regions**: Call `watchRegions` method to track Regions. Method will invoke a callback with `Region` object. Method will return a watch id which can be used later to remove the callback.
 
 ```javascript
-var watchId = Woosmap.watchRegions(regionCallback,errorCallback);
+var watchId = Woosmap.watchRegions(regionCallback, errorCallback);
 
 var regionCallback = function(region) {
    console.log(visit);
@@ -136,17 +136,25 @@ var errorCallback = function(error) {
 };
 
 //Stop watching
-Woosmap.clearRegionsWatch(onSuccess, onError, watchId);
+Woosmap.clearRegionsWatch(watchId, onSuccess, onError);
 ```
 
-* **Add Regions**: Call `addRegion` method to add region that you want to monitor. Method will accept following parameter.
+* **Add Regions**: Call `addRegion` method to add region that you want to monitor. Method will accept an object following attributes.
 	* `regionId` - Id of the region
 	* `lat` - Latitude
 	* `lng` - Longitude
 	* `radius` - Radius in meters
 
 ```javascript
-Woosmap.addRegion(addRegionCallback,errorCallback,"rue_tolbiac",48.82862170908377, 2.3729680825540838,10);
+
+var regionInfo = {
+	"regionId": "rue_tolbiac",
+	"lat": 48.82862170908377,
+	"lng": 2.3729680825540838,
+	"radius": 10,
+};
+
+Woosmap.addRegion(regionInfo, addRegionCallback, errorCallback);
 
 var addRegionCallback = function() {
    console.log("success");
@@ -163,7 +171,7 @@ var errorCallback = function(error) {
 	* `regionId` - Id of the region
 	
 ```javascript
-Woosmap.removeRegion(removeRegionCallback,errorCallback,"rue_tolbiac");
+Woosmap.removeRegion("rue_tolbiac", removeRegionCallback, errorCallback);
 
 var removeRegionCallback = function() {
    console.log("success");
@@ -185,7 +193,7 @@ var errorCallback = function(error) {
 * **Get POIs**: Call `getPois` method to get an array of POIs from the local db.
 
 ```javascript
-Woosmap.db.getPois(getPoisCallback,errorCallback);
+Woosmap.db.getPois(getPoisCallback, errorCallback);
 
 var getPoisCallback = function(pois) {
    console.log(pois.length);
@@ -200,7 +208,7 @@ var errorCallback = function(error) {
 * **Get Locations**: Call `getLocations` method to get an array of Locations from the local db.
 
 ```javascript
-Woosmap.db.getLocations(getLocationsCallback,errorCallback);
+Woosmap.db.getLocations(getLocationsCallback, errorCallback);
 
 var getLocationCallback = function(locations) {
    console.log(locations.length);
@@ -216,7 +224,7 @@ var errorCallback = function(error) {
 * **Get Visits**: Call `getVisits` method to get an array of Visits from the local db.
 
 ```javascript
-Woosmap.db.getVisits(getVisitsCallback,errorCallback);
+Woosmap.db.getVisits(getVisitsCallback, errorCallback);
 
 var getVisitsCallback = function(visits) {
    console.log(visits.length);
@@ -231,7 +239,7 @@ var errorCallback = function(error) {
 * **Get Regions**: Call `getRegions` method to get an array of Regions from the local db.
 
 ```javascript
-Woosmap.db.getRegions(getRegionsCallback,errorCallback);
+Woosmap.db.getRegions(getRegionsCallback, errorCallback);
 
 var getRegionsCallback = function(regions) {
    console.log(regions.length);
@@ -246,7 +254,7 @@ var errorCallback = function(error) {
 * **Get Zones of Interests**: Call `getZois` method to get an array of ZOIs from the local db.
 
 ```javascript
-Woosmap.db.getZois(getZoisCallback,errorCallback);
+Woosmap.db.getZois(getZoisCallback, errorCallback);
 
 var getZoisCallback = function(zois) {
    console.log(zois.length);
